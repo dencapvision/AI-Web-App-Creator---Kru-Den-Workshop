@@ -17,7 +17,10 @@ import {
   ChevronRight,
   Globe,
   Code2,
-  Key
+  Key,
+  LogIn,
+  Save,
+  Send
 } from 'lucide-react';
 import { ReflectionData, ProjectChecklist } from './types';
 import { getPromptAdvice } from './geminiService';
@@ -96,80 +99,119 @@ const DashboardPage: React.FC = () => (
 );
 
 const WorkshopFlowPage: React.FC = () => {
-  const steps = [
-    { 
-      id: '1', 
-      title: 'ขั้นตอนที่ 1: เปลี่ยนไอเดียให้เป็นต้นแบบ ด้วย AI Studio', 
-      description: 'เริ่มจากการสมัครใช้งานด้วย Gmail และล็อกอินเข้าสู่ AI Studio จากนั้นใช้พลังของ Gemini ในการ "เสก" ไอเดียออกมาเป็นโค้ด Web App ที่ตรงใจ ตรวจสอบความถูกต้องจนพอใจก่อนนำไปบันทึก', 
-      details: ['สมัครใช้งานด้วย Gmail', 'Prompt เสกไอเดียเป็นโค้ด', 'ตรวจสอบผลลัพธ์ใน Browser'],
-      icon: <Code2 className="w-6 h-6" /> 
+  const productionSteps = [
+    {
+      id: 'step1',
+      title: 'ขั้นตอนที่ 1: เปลี่ยนไอเดียให้เป็นต้นแบบ ด้วย AI Studio',
+      icon: <Code2 className="w-8 h-8 text-indigo-400" />,
+      description: 'กระบวนการเริ่มต้นที่สำคัญที่สุด คือการเปลี่ยนจินตนาการให้กลายเป็นโค้ดที่รันได้จริง',
+      points: [
+        { icon: <LogIn className="w-4 h-4" />, text: 'สมัครใช้งานครั้งแรก: เข้าไปที่ aistudio.google.com แล้วล็อกอินด้วย Gmail' },
+        { icon: <Sparkles className="w-4 h-4" />, text: 'การเสกไอเดีย: ใช้ Prompt จาก "Prompt Alchemist" สั่งให้ Gemini สร้างโค้ด HTML/CSS/JS' },
+        { icon: <Monitor className="w-4 h-4" />, text: 'ปรับแต่งต้นแบบ: ดูผลลัพธ์ผ่านตัว Preview และสั่งแก้จนกว่าจะตรงใจ (ก่อนนำโค้ดไปบันทึก)' }
+      ],
+      color: 'border-indigo-500/30'
     },
-    { 
-      id: '2', 
-      title: 'ขั้นตอนที่ 2: การบันทึกโค้ดไว้บน GitHub', 
-      description: 'สมัครสมาชิก GitHub โดยแนะนำให้ใช้ Gmail เดียวกัน สร้าง Repository (บ้านของโปรเจกต์) และทำการบันทึกโค้ด (index.html) ลงไปเป็นครั้งแรก เพื่อเตรียมความพร้อมสู่การออนไลน์', 
-      details: ['สร้าง Repository ใหม่', 'Upload ไฟล์โค้ด', 'จัดการเวอร์ชันของงาน'],
-      icon: <Github className="w-6 h-6" /> 
+    {
+      id: 'step2',
+      title: 'ขั้นตอนที่ 2: การบันทึกโค้ดไว้บน GitHub',
+      icon: <Github className="w-8 h-8 text-slate-200" />,
+      description: 'พื้นที่จัดเก็บงานแบบมืออาชีพ เพื่อให้โปรเจกต์ของเราออนไลน์ได้ตลอดไป',
+      points: [
+        { icon: <LogIn className="w-4 h-4" />, text: 'สมัครสมาชิก: แนะนำให้ใช้ Gmail เดียวกับ AI Studio เพื่อความเป็นระเบียบ' },
+        { icon: <Layout className="w-4 h-4" />, text: 'สร้าง Repo: กด "New Repository" ตั้งชื่อให้สื่อถึงผลงานของเรา' },
+        { icon: <Save className="w-4 h-4" />, text: 'บันทึก Repo ครั้งแรก: สร้างไฟล์ index.html และวางโค้ดจาก AI Studio ลงไป จากนั้นกด Commit' }
+      ],
+      color: 'border-slate-500/30'
     },
-    { 
-      id: '3', 
-      title: 'ขั้นตอนที่ 3: การโชว์เวบไซต์สู่สาธารณะ ด้วย Vercel', 
-      description: 'Launch Pad สู่โลกกว้าง! สมัครใช้งาน Vercel และเชื่อมต่อกับบัญชี GitHub ของเรา เลือก Repo ที่ต้องการแล้วกด Deploy เพื่อรับ URL จริงที่ทุกคนเข้าชมได้จากทั่วโลก', 
-      details: ['Connect GitHub to Vercel', 'Deploy ในคลิกเดียว', 'แชร์ URL ให้เพื่อนดู'],
-      icon: <Globe className="w-6 h-6" /> 
-    },
+    {
+      id: 'step3',
+      title: 'ขั้นตอนที่ 3: การโชว์เวบไซต์สู่สาธารณะ ด้วย Vercel',
+      icon: <Globe className="w-8 h-8 text-cyan-400" />,
+      description: 'ขั้นตอนสุดท้ายในการส่งผลงานออกสู่โลกกว้างให้คนอื่นได้เข้าชม',
+      points: [
+        { icon: <LogIn className="w-4 h-4" />, text: 'สมัครใช้งาน: เข้า Vercel.com และเลือก "Continue with GitHub"' },
+        { icon: <Zap className="w-4 h-4" />, text: 'เชื่อมต่อ GitHub: กด "Add New Project" และเลือก Repository ที่เราเพิ่งสร้าง' },
+        { icon: <Send className="w-4 h-4" />, text: 'Launch Pad: กด "Deploy" แล้วรอสักครู่ Vercel จะมอบ URL สาธารณะให้เราทันที!' }
+      ],
+      color: 'border-cyan-500/30'
+    }
   ];
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div className="flex justify-between items-center">
-        <h2 className="text-3xl font-bold flex items-center gap-3">
-          <Monitor className="text-indigo-400" /> ขั้นตอนการผลิตชิ้นงาน
-        </h2>
-        <div className="flex items-center gap-2 text-sm text-slate-400 bg-slate-800 px-4 py-2 rounded-full border border-slate-700">
-          <Zap className="w-4 h-4 text-yellow-500 animate-pulse" /> กระบวนการสร้างสรรค์
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 className="text-3xl font-bold flex items-center gap-3">
+            <Monitor className="text-indigo-400" /> ขั้นตอนการผลิตชิ้นงาน
+          </h2>
+          <p className="text-slate-400 mt-2">คู่มือการสร้าง Web App ทีละขั้นตอนสำหรับนักเรียน</p>
+        </div>
+        <div className="flex items-center gap-2 text-sm text-slate-400 bg-slate-800 px-4 py-2 rounded-full border border-slate-700 w-fit">
+          <Zap className="w-4 h-4 text-yellow-500 animate-pulse" /> กระบวนการสร้างสรรค์ 1 วัน
         </div>
       </div>
 
       <div className="space-y-6">
-        {steps.map((step, idx) => (
-          <div key={step.id} className="relative bg-slate-800/50 p-8 rounded-3xl border border-slate-700/50 hover:bg-indigo-900/10 hover:border-indigo-500/50 transition-all flex flex-col md:flex-row gap-8 group">
-            <div className="flex-shrink-0">
-              <div className="w-16 h-16 rounded-2xl bg-indigo-600 flex items-center justify-center text-white shadow-lg shadow-indigo-600/30 group-hover:scale-110 transition-transform">
+        {productionSteps.map((step, idx) => (
+          <div key={step.id} className={`bg-slate-800/40 backdrop-blur-md border-l-4 ${step.color} rounded-2xl p-6 md:p-8 hover:bg-slate-800/60 transition-all shadow-lg`}>
+            <div className="flex flex-col md:flex-row gap-6">
+              <div className="flex-shrink-0 bg-slate-900/50 w-16 h-16 rounded-2xl flex items-center justify-center border border-slate-700/50">
                 {step.icon}
               </div>
-            </div>
-            <div className="flex-1 space-y-4">
-              <h3 className="text-2xl font-bold text-white leading-tight">{step.title}</h3>
-              <p className="text-slate-400 leading-relaxed text-lg">{step.description}</p>
-              <div className="flex flex-wrap gap-3">
-                {step.details.map((detail, dIdx) => (
-                  <span key={dIdx} className="bg-slate-900/80 text-indigo-300 px-4 py-1.5 rounded-xl text-sm border border-indigo-500/20">
-                    {detail}
-                  </span>
-                ))}
+              <div className="flex-1 space-y-4">
+                <div>
+                  <h3 className="text-xl md:text-2xl font-bold text-white mb-2">{step.title}</h3>
+                  <p className="text-slate-400 text-sm md:text-base">{step.description}</p>
+                </div>
+                <div className="grid grid-cols-1 gap-3">
+                  {step.points.map((point, pIdx) => (
+                    <div key={pIdx} className="flex items-start gap-3 bg-slate-900/30 p-3 rounded-xl border border-slate-700/30">
+                      <div className="mt-1 bg-indigo-500/20 p-1.5 rounded-lg text-indigo-400">
+                        {point.icon}
+                      </div>
+                      <span className="text-slate-300 text-sm leading-relaxed">{point.text}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card title="การใช้ API Key อย่างปลอดภัย" icon={<Key className="text-yellow-400 w-5 h-5" />}>
-          <div className="space-y-3 text-sm text-slate-400">
-            <p className="flex gap-2"><CheckCircle2 className="w-5 h-5 text-indigo-400 shrink-0" /> 1. ตั้งชื่อโครงการ และสร้าง API Key ผ่าน AI Studio</p>
-            <p className="flex gap-2"><CheckCircle2 className="w-5 h-5 text-indigo-400 shrink-0" /> 2. คัดลอก Key เก็บไว้ในที่ปลอดภัย</p>
-            <p className="flex gap-2"><CheckCircle2 className="w-5 h-5 text-indigo-400 shrink-0" /> 3. นำไปวางไว้ในส่วนของ <strong>Environment Variables</strong> ใน Vercel เมื่อ Deploy เพื่อความปลอดภัยสูงสุด</p>
+      <Card title="การจัดการ API Key สำหรับโปรเจกต์" icon={<Key className="text-yellow-400 w-5 h-5" />}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div className="space-y-4">
+            <p className="text-slate-300 text-sm leading-relaxed">
+              หากโปรเจกต์ของเธอมีการเรียกใช้งาน AI หรือบริการภายนอกที่ต้องใช้ API Key ให้นักเรียนปฏิบัติตามนี้เพื่อความปลอดภัย:
+            </p>
+            <ul className="space-y-3">
+              <li className="flex items-start gap-3 text-xs md:text-sm text-slate-400">
+                <div className="w-5 h-5 rounded-full bg-indigo-600 flex items-center justify-center text-[10px] text-white shrink-0 mt-0.5">1</div>
+                <span><strong>ตั้งชื่อโครงการ:</strong> ใน AI Studio ให้ตั้งชื่อให้จำง่าย</span>
+              </li>
+              <li className="flex items-start gap-3 text-xs md:text-sm text-slate-400">
+                <div className="w-5 h-5 rounded-full bg-indigo-600 flex items-center justify-center text-[10px] text-white shrink-0 mt-0.5">2</div>
+                <span><strong>สร้าง API Key:</strong> กดปุ่ม "Get API key" และคัดลอกรหัสไว้อย่างระมัดระวัง</span>
+              </li>
+              <li className="flex items-start gap-3 text-xs md:text-sm text-slate-400">
+                <div className="w-5 h-5 rounded-full bg-indigo-600 flex items-center justify-center text-[10px] text-white shrink-0 mt-0.5">3</div>
+                <span><strong>วางใน Environment:</strong> กลับไปที่ Vercel Dashboard -> Settings -> Environment Variables แล้วเพิ่ม Key ลงไป (ห้ามเขียนไว้ในโค้ดตรงๆ!)</span>
+              </li>
+            </ul>
           </div>
-        </Card>
-
-        <Card title="Trainer Guide Tips" icon={<ShieldCheck className="text-green-400 w-5 h-5" />}>
-          <div className="space-y-3 text-sm text-slate-400">
-            <p className="font-bold text-white">Peer Support (เพื่อนช่วยเพื่อน)</p>
-            <p>ใครทำเสร็จก่อน แต่งตั้งเป็น "Master Creator" ให้ไปช่วยเพื่อนที่ยังติดขัด สร้างสังคมแห่งการแบ่งปัน</p>
+          <div className="bg-indigo-900/20 border border-indigo-500/30 p-6 rounded-2xl">
+            <div className="flex items-center gap-3 mb-3 text-indigo-400">
+              <ShieldCheck className="w-6 h-6" />
+              <h4 className="font-bold">Security Tip</h4>
+            </div>
+            <p className="text-slate-400 text-xs leading-relaxed">
+              การไม่ใส่ API Key ไว้ในโค้ดโดยตรงจะช่วยป้องกันไม่ให้คนอื่นแอบเอารหัสของเราไปใช้จนโควต้าเต็ม ครูเด่นแนะนำให้ใช้ Environment Variables เสมอนะครับ!
+            </p>
           </div>
-        </Card>
-      </div>
+        </div>
+      </Card>
     </div>
   );
 };
