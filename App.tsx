@@ -25,7 +25,11 @@ import {
   Layers,
   Cpu,
   Users,
-  ExternalLink
+  ExternalLink,
+  Share2,
+  Link,
+  Copy,
+  MousePointer2
 } from 'lucide-react';
 import { ReflectionData, ProjectChecklist } from './types';
 import { getPromptAdvice } from './geminiService';
@@ -60,41 +64,91 @@ const Card: React.FC<{ title: string; children: React.ReactNode; className?: str
   </div>
 );
 
+// Visual guide for the Share dialog in AI Studio
+const ShareVisualGuide: React.FC = () => (
+  <div className="mt-4 bg-slate-900/80 rounded-2xl border border-indigo-500/30 p-4 shadow-2xl overflow-hidden">
+    <div className="flex items-center justify-between mb-4 border-b border-slate-700 pb-2">
+      <span className="text-xs font-bold text-slate-300">ตัวอย่าง: วิธีแชร์ใน AI Studio</span>
+      <div className="flex gap-1">
+        <div className="w-2 h-2 rounded-full bg-red-500/50"></div>
+        <div className="w-2 h-2 rounded-full bg-yellow-500/50"></div>
+        <div className="w-2 h-2 rounded-full bg-green-500/50"></div>
+      </div>
+    </div>
+    
+    <div className="space-y-4">
+      <div className="bg-slate-800 border border-slate-700 rounded-xl p-4 relative">
+        <div className="flex items-center justify-between mb-4">
+          <span className="text-sm font-bold text-white">Share "Project Name"</span>
+          <div className="p-1 hover:bg-slate-700 rounded-md cursor-pointer"><Share2 className="w-4 h-4 text-slate-400" /></div>
+        </div>
+        
+        <div className="space-y-4">
+          <div className="flex items-center justify-between bg-slate-900/50 p-3 rounded-lg border border-slate-700">
+            <div className="flex flex-col">
+              <span className="text-xs font-bold text-white">Publish your app</span>
+              <span className="text-[10px] text-slate-500">เปิดเพื่อให้คนอื่นเข้าชมได้</span>
+            </div>
+            <div className="w-10 h-5 bg-indigo-600 rounded-full relative flex items-center px-1">
+              <div className="w-3 h-3 bg-white rounded-full absolute right-1"></div>
+            </div>
+          </div>
+          
+          <div className="flex gap-2">
+            <div className="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-[10px] text-indigo-400 truncate font-mono">
+              https://ai.studio/apps/drive/1AH6C...
+            </div>
+            <button className="bg-indigo-600 px-3 py-2 rounded-lg text-[10px] font-bold text-white flex items-center gap-1">
+              <Copy className="w-3 h-3" /> Copy
+            </button>
+          </div>
+        </div>
+        
+        {/* Helper overlays */}
+        <div className="absolute -right-2 -top-2 bg-yellow-500 text-slate-950 text-[10px] font-black px-2 py-0.5 rounded-full shadow-lg flex items-center gap-1 animate-pulse">
+           <MousePointer2 className="w-3 h-3" /> ต้องเปิดปุ่มนี้!
+        </div>
+      </div>
+    </div>
+    <p className="text-[10px] text-slate-500 mt-3 italic text-center">* กดปุ่ม Share ที่มุมขวาบนของ AI Studio แล้วเปิด Publish your app</p>
+  </div>
+);
+
 // --- Pages ---
 
 const DashboardPage: React.FC = () => (
   <div className="space-y-8 animate-in fade-in duration-500">
     <div className="relative h-80 rounded-3xl overflow-hidden shadow-2xl group">
       <img 
-        src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200&auto=format&fit=crop" 
+        src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=1200&auto=format&fit=crop" 
         className="w-full h-full object-cover brightness-50 group-hover:scale-105 transition-transform duration-700"
         alt="Vite + AI Banner"
       />
       <div className="absolute inset-0 flex flex-col justify-center items-center text-center p-6 bg-gradient-to-t from-slate-950/80 to-transparent">
         <div className="bg-cyan-500 text-slate-950 text-xs font-bold px-3 py-1 rounded-full mb-4 animate-bounce">M.3 AI WORKSHOP</div>
         <h1 className="text-4xl md:text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-white to-cyan-400">
-          Vite Web App Creator
+          AI Web App Creator
         </h1>
         <p className="text-xl text-slate-200 max-w-2xl leading-relaxed">
-          "จากไอเดียสู่หน้าจอจริง" <br/> เรียนรู้วิธีสร้าง Web App ด้วย Vite.js + AI + Vercel กับครูเด่น
+          "สร้างเว็บแอปได้ง่ายๆ ใน 3 ขั้นตอน" <br/> ออกแบบด้วย AI แชร์ลิงก์ แล้วส่งงานได้เลย!
         </p>
       </div>
     </div>
 
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <Card title="1. AI Studio" icon={<Sparkles className="text-yellow-400 w-5 h-5" />}>
+      <Card title="1. ออกแบบ (AI Studio)" icon={<Cpu className="text-yellow-400 w-5 h-5" />}>
         <p className="text-slate-400 text-sm leading-relaxed">
-          เสกโค้ดด้วยพลัง AI (Gemini) ใช้ Magic Prompt ของครูเด่นเพื่อสร้างโครงสร้าง Vite + React ที่สวยงามและทันสมัย
+          ใช้พลังของ Gemini ใน AI Studio เสกโค้ด Web App ที่สวยงามและพร้อมใช้งานได้ทันทีเพียงแค่พิมพ์ไอเดีย
         </p>
       </Card>
-      <Card title="2. GitHub" icon={<Github className="text-slate-200 w-5 h-5" />}>
+      <Card title="2. แชร์ (Public Link)" icon={<Share2 className="text-slate-200 w-5 h-5" />}>
         <p className="text-slate-400 text-sm leading-relaxed">
-          บันทึกผลงานไว้ใน "ตู้เซฟดิจิทัล" เชื่อมต่อโปรเจกต์กับ GitHub เพื่อจัดการเวอร์ชันและทำงานร่วมกับเพื่อนในกลุ่ม
+          กดปุ่มแชร์ที่มุมขวาบนของ AI Studio แล้วเปิดโหมด "Publish your app" เพื่อรับลิงก์สำหรับคนทั่วไป
         </p>
       </Card>
-      <Card title="3. Vercel" icon={<Rocket className="text-cyan-400 w-5 h-5" />}>
+      <Card title="3. ส่งงาน (Google Form)" icon={<Send className="text-cyan-400 w-5 h-5" />}>
         <p className="text-slate-400 text-sm leading-relaxed">
-          ปล่อยพลังสู่สาธารณะ! Deploy เว็บไซต์จาก GitHub ขึ้นระบบ Cloud ของ Vercel เพื่อให้ทุกคนเข้าใช้งานได้ทั่วโลก
+          คัดลอกลิงก์ที่ได้ไปใส่ใน Google Form ของครูเด่น เพื่อบันทึกผลงานของกลุ่มเราเข้าสู่ระบบคะแนน
         </p>
       </Card>
     </div>
@@ -105,37 +159,38 @@ const WorkshopFlowPage: React.FC = () => {
   const productionSteps = [
     {
       id: 'step1',
-      title: 'ขั้นตอนที่ 1: ปรุงโค้ดด้วย AI Studio',
-      icon: <Cpu className="w-8 h-8 text-yellow-400" />,
-      description: 'ใช้ Gemini ช่วยออกแบบ Web App ในฝันด้วย Vite.js Framework',
+      title: 'ขั้นตอนที่ 1: ออกแบบ Demo ใน AI Studio',
+      icon: <Sparkles className="w-8 h-8 text-yellow-400" />,
+      description: 'ใช้ Gemini ช่วยสร้าง Web App ในฝันให้เป็นจริงขึ้นมา',
       points: [
-        { icon: <Sparkles className="w-4 h-4" />, text: 'พิมพ์ Prompt: "ช่วยสร้างเวบแอพสำหรับ [ชื่อไอเดีย] ด้วย Framework Vite.js + Tailwind CSS"' },
-        { icon: <Code2 className="w-4 h-4" />, text: 'คัดลอกโค้ด React จาก AI ไปใส่ในไฟล์ App.jsx' },
-        { icon: <Layers className="w-4 h-4" />, text: 'ปรับแต่งดีไซน์ด้วย Tailwind ให้สวยงามตามสไตล์กลุ่มเรา' }
+        { icon: <Code2 className="w-4 h-4" />, text: 'ใช้ AI Magic Prompt จากหน้าถัดไปเพื่อสั่งงาน AI' },
+        { icon: <Layout className="w-4 h-4" />, text: 'ปรับแต่งดีไซน์ สีสัน และข้อมูลให้ตรงกับกลุ่มเรา' },
+        { icon: <Zap className="w-4 h-4" />, text: 'ตรวจสอบให้แน่ใจว่าปุ่มต่างๆ ทำงานได้ตามที่ต้องการ' }
       ],
       color: 'border-yellow-500/30'
     },
     {
       id: 'step2',
-      title: 'ขั้นตอนที่ 2: บันทึกลงตู้เซฟ GitHub',
-      icon: <Github className="w-8 h-8 text-slate-200" />,
-      description: 'สมัครและล็อกอิน GitHub ด้วย Email เดียวกับ AI Studio เพื่อความง่าย',
+      title: 'ขั้นตอนที่ 2: แชร์ลิงก์เป็นสาธารณะ',
+      icon: <Share2 className="w-8 h-8 text-slate-200" />,
+      description: 'เปิดให้คนภายนอกสามารถเข้าชมหน้าเว็บของเราได้',
       points: [
-        { icon: <LogIn className="w-4 h-4" />, text: 'สมัครใช้งาน GitHub (แนะนำใช้ Gmail โรงเรียน)' },
-        { icon: <Save className="w-4 h-4" />, text: 'สร้าง Repository ใหม่ ตั้งชื่อให้สื่อถึงโปรเจกต์' },
-        { icon: <CheckCircle2 className="w-4 h-4" />, text: 'อัปโหลดไฟล์โปรเจกต์ Vite ขึ้นสู่ GitHub (Push Code)' }
+        { icon: <Monitor className="w-4 h-4" />, text: 'มองหาปุ่ม Share ที่มุมขวาบนของหน้าจอ AI Studio' },
+        { icon: <CheckCircle2 className="w-4 h-4" />, text: 'สวิตช์เปิดที่เมนู "Publish your app"' },
+        { icon: <Link className="w-4 h-4" />, text: 'กดปุ่ม Copy เพื่อเก็บลิงก์ไว้เตรียมส่งงาน' }
       ],
-      color: 'border-slate-500/30'
+      color: 'border-slate-500/30',
+      hasVisualGuide: true
     },
     {
       id: 'step3',
-      title: 'ขั้นตอนที่ 3: ออนไลน์จริงด้วย Vercel',
-      icon: <Rocket className="w-8 h-8 text-cyan-400" />,
-      description: 'นำลิงก์ GitHub มาเชื่อมต่อกับ Vercel เพื่อออนไลน์หน้าเว็บ',
+      title: 'ขั้นตอนที่ 3: ส่งลิงก์ลง Google Form',
+      icon: <Send className="w-8 h-8 text-cyan-400" />,
+      description: 'นำลิงก์ผลงานไปส่งเพื่อบันทึกคะแนนงานกลุ่ม',
       points: [
-        { icon: <Globe className="w-4 h-4" />, text: 'ล็อกอิน Vercel ด้วยบัญชี GitHub' },
-        { icon: <Zap className="w-4 h-4" />, text: 'กด Import Project จาก GitHub ที่เราเพิ่งอัปโหลด' },
-        { icon: <ExternalLink className="w-4 h-4" />, text: 'กด Deploy และรอรับ URL สาธารณะ (เช่น project.vercel.app)' }
+        { icon: <BookOpen className="w-4 h-4" />, text: 'ไปที่เมนู Send Homework ในแอปนี้' },
+        { icon: <ExternalLink className="w-4 h-4" />, text: 'วางลิงก์ที่ Copy มาลงในฟอร์มของครูเด่น' },
+        { icon: <Users className="w-4 h-4" />, text: 'ตรวจสอบชื่อสมาชิกกลุ่มให้ครบถ้วนก่อนกดส่ง' }
       ],
       color: 'border-cyan-500/30'
     }
@@ -148,7 +203,7 @@ const WorkshopFlowPage: React.FC = () => {
           <h2 className="text-3xl font-bold flex items-center gap-3">
             <Monitor className="text-indigo-400" /> แผนที่การสร้าง Web App (M.3)
           </h2>
-          <p className="text-slate-400 mt-2">ทำตาม 3 ขั้นตอนนี้ แล้วรับรองว่ามีเว็บเป็นของตัวเองแน่นอน!</p>
+          <p className="text-slate-400 mt-2">ทำตาม 3 ขั้นตอนง่ายๆ นี้ แล้วรับรองว่ามีเว็บเป็นของตัวเองแน่นอน!</p>
         </div>
       </div>
 
@@ -174,6 +229,7 @@ const WorkshopFlowPage: React.FC = () => {
                     </div>
                   ))}
                 </div>
+                {step.hasVisualGuide && <ShareVisualGuide />}
               </div>
             </div>
           </div>
@@ -195,7 +251,7 @@ const PromptAlchemistPage: React.FC = () => {
       const result = await getPromptAdvice(idea);
       setAdvice(result);
     } catch (e) {
-      alert("โอ๊ะโอ! พลัง AI ติดขัด ลองใหม่อีกครั้งนะ");
+      alert("โอ๊ะโอ! พลัง AI Studio ติดขัด ลองใหม่อีกครั้งนะ");
     } finally {
       setLoading(false);
     }
@@ -250,7 +306,7 @@ const PromptAlchemistPage: React.FC = () => {
                       onClick={() => { navigator.clipboard.writeText(advice.suggestedPrompt); alert("คัดลอกคาถาแล้ว! เตรียมไปวางใน AI Studio นะ"); }}
                       className="absolute top-4 right-4 p-3 bg-indigo-600 hover:bg-indigo-500 rounded-xl shadow-lg transition-all transform hover:scale-110"
                     >
-                      <CheckCircle2 className="w-5 h-5 text-white" />
+                      <Copy className="w-5 h-5 text-white" />
                     </button>
                   </div>
                 </div>
@@ -276,9 +332,9 @@ const PromptAlchemistPage: React.FC = () => {
 
 const WorkbookPage: React.FC = () => {
   const [checklist, setChecklist] = useState<ProjectChecklist>({
-    githubAccount: false,
-    repoCreated: false,
-    codeUploaded: false,
+    githubAccount: false, // Repurposed for AI Studio Design
+    repoCreated: false,   // Repurposed for Share Link
+    codeUploaded: false,  // Repurposed for Copy Link
     vercelConnected: false,
     deployed: false
   });
@@ -324,11 +380,9 @@ const WorkbookPage: React.FC = () => {
           <Card title="Checklist ความสำเร็จ" icon={<CheckCircle2 className="text-green-400 w-5 h-5" />}>
             <div className="space-y-3">
               {Object.entries({
-                githubAccount: "สมัคร/ล็อกอิน GitHub",
-                repoCreated: "ใช้ AI เสกโค้ดสำเร็จ",
-                codeUploaded: "อัปโหลดโค้ดขึ้น GitHub",
-                vercelConnected: "เชื่อมต่อ GitHub กับ Vercel",
-                deployed: "ออนไลน์จริงด้วย URL ส่วนตัว"
+                githubAccount: "ขั้นตอนที่ 1: ออกแบบเสร็จแล้ว",
+                repoCreated: "ขั้นตอนที่ 2: เปิดแชร์สาธารณะ",
+                codeUploaded: "ขั้นตอนที่ 3: ก๊อปปี้ลิงก์พร้อมส่ง",
               }).map(([key, label]) => (
                 <button
                   key={key}
@@ -345,10 +399,14 @@ const WorkbookPage: React.FC = () => {
               ))}
             </div>
           </Card>
+          
+          <Card title="ต้องทำสิ่งนี้ก่อนส่ง!" icon={<ShieldCheck className="text-yellow-400 w-5 h-5" />}>
+             <ShareVisualGuide />
+          </Card>
         </div>
 
         <div className="lg:col-span-2 space-y-6">
-          <Card title="ส่งงานผ่านฟอร์ม (กดยืนยันด้วย URL จาก Vercel)" icon={<Send className="text-cyan-400 w-5 h-5" />}>
+          <Card title="ส่งงานผ่านฟอร์ม (กดยืนยันด้วย URL จาก AI Studio)" icon={<Send className="text-cyan-400 w-5 h-5" />}>
             <div className="rounded-2xl overflow-hidden border border-slate-700 bg-white">
                <iframe 
                 src="https://docs.google.com/forms/d/e/1FAIpQLScytkvqqOnXTRyhfe47ykyIuf1_S3aK3xmRzE4UBpFJJ_n1iw/viewform?embedded=true" 
@@ -423,7 +481,7 @@ export default function App() {
                <p className="text-sm font-black text-white">ครูเด่น</p>
              </div>
           </div>
-          <p className="text-[10px] text-slate-500 leading-relaxed italic">"Framework Vite คือความเร็ว GitHub คือความปลอดภัย AI คือที่ปรึกษา ลุยเลย!"</p>
+          <p className="text-[10px] text-slate-500 leading-relaxed italic">"AI Studio คือสมอง การแชร์คือหัวใจ การส่งงานคือความสำเร็จ ลุยเลย!"</p>
         </div>
       </aside>
 
