@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   Rocket, 
   Sparkles, 
@@ -20,7 +20,12 @@ import {
   Key,
   LogIn,
   Save,
-  Send
+  Send,
+  Terminal,
+  Layers,
+  Cpu,
+  Users,
+  ExternalLink
 } from 'lucide-react';
 import { ReflectionData, ProjectChecklist } from './types';
 import { getPromptAdvice } from './geminiService';
@@ -61,37 +66,35 @@ const DashboardPage: React.FC = () => (
   <div className="space-y-8 animate-in fade-in duration-500">
     <div className="relative h-80 rounded-3xl overflow-hidden shadow-2xl group">
       <img 
-        src="https://images.unsplash.com/photo-1620712943543-bcc4628c71d5?q=80&w=1200&auto=format&fit=crop" 
+        src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200&auto=format&fit=crop" 
         className="w-full h-full object-cover brightness-50 group-hover:scale-105 transition-transform duration-700"
-        alt="AI Banner"
+        alt="Vite + AI Banner"
       />
       <div className="absolute inset-0 flex flex-col justify-center items-center text-center p-6 bg-gradient-to-t from-slate-950/80 to-transparent">
-        <div className="bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full mb-4 animate-bounce">GRADE 9 WORKSHOP</div>
-        <h1 className="text-4xl md:text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-pink-400 to-yellow-300">
-          AI Web App Creator
+        <div className="bg-cyan-500 text-slate-950 text-xs font-bold px-3 py-1 rounded-full mb-4 animate-bounce">M.3 AI WORKSHOP</div>
+        <h1 className="text-4xl md:text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-white to-cyan-400">
+          Vite Web App Creator
         </h1>
         <p className="text-xl text-slate-200 max-w-2xl leading-relaxed">
-          "เสกไอเดียให้มีตัวตนใน 1 วัน" <br/> เรียนรู้โลกยุค AI กับครูเด่น กระบวนกรสอนสนุก
+          "จากไอเดียสู่หน้าจอจริง" <br/> เรียนรู้วิธีสร้าง Web App ด้วย Vite.js + AI + Vercel กับครูเด่น
         </p>
       </div>
     </div>
 
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <Card title="Concept" icon={<Zap className="text-yellow-400 w-5 h-5" />}>
-        <p className="text-slate-400 leading-relaxed">
-          เปลี่ยนความกลัวโค้ด ให้เป็นพลังความกล้าสร้างสรรค์ ใช้ **FLOW State** เป็นเครื่องยนต์ขับเคลื่อนไอเดีย
+      <Card title="1. AI Studio" icon={<Sparkles className="text-yellow-400 w-5 h-5" />}>
+        <p className="text-slate-400 text-sm leading-relaxed">
+          เสกโค้ดด้วยพลัง AI (Gemini) ใช้ Magic Prompt ของครูเด่นเพื่อสร้างโครงสร้าง Vite + React ที่สวยงามและทันสมัย
         </p>
       </Card>
-      <Card title="The Creator's Way" icon={<Award className="text-pink-400 w-5 h-5" />}>
-        <ul className="space-y-2 text-slate-400">
-          <li className="flex items-center gap-2 text-sm"><CheckCircle2 className="w-4 h-4 text-indigo-400" /> มั่นใจ (Self-Efficacy)</li>
-          <li className="flex items-center gap-2 text-sm"><CheckCircle2 className="w-4 h-4 text-indigo-400" /> กล้าลองผิดลองถูก</li>
-          <li className="flex items-center gap-2 text-sm"><CheckCircle2 className="w-4 h-4 text-indigo-400" /> แบ่งปันความสำเร็จ</li>
-        </ul>
+      <Card title="2. GitHub" icon={<Github className="text-slate-200 w-5 h-5" />}>
+        <p className="text-slate-400 text-sm leading-relaxed">
+          บันทึกผลงานไว้ใน "ตู้เซฟดิจิทัล" เชื่อมต่อโปรเจกต์กับ GitHub เพื่อจัดการเวอร์ชันและทำงานร่วมกับเพื่อนในกลุ่ม
+        </p>
       </Card>
-      <Card title="Workshop Result" icon={<Rocket className="text-cyan-400 w-5 h-5" />}>
-        <p className="text-slate-400 text-sm">
-          นักเรียนจะมี Web App ออนไลน์เป็นของตัวเอง พร้อมทักษะการใช้ Gemini, GitHub และ Vercel ติดตัวไปใช้ได้ทันที
+      <Card title="3. Vercel" icon={<Rocket className="text-cyan-400 w-5 h-5" />}>
+        <p className="text-slate-400 text-sm leading-relaxed">
+          ปล่อยพลังสู่สาธารณะ! Deploy เว็บไซต์จาก GitHub ขึ้นระบบ Cloud ของ Vercel เพื่อให้ทุกคนเข้าใช้งานได้ทั่วโลก
         </p>
       </Card>
     </div>
@@ -102,37 +105,37 @@ const WorkshopFlowPage: React.FC = () => {
   const productionSteps = [
     {
       id: 'step1',
-      title: 'ขั้นตอนที่ 1: เปลี่ยนไอเดียให้เป็นต้นแบบ ด้วย AI Studio',
-      icon: <Code2 className="w-8 h-8 text-indigo-400" />,
-      description: 'กระบวนการเริ่มต้นที่สำคัญที่สุด คือการเปลี่ยนจินตนาการให้กลายเป็นโค้ดที่รันได้จริง',
+      title: 'ขั้นตอนที่ 1: ปรุงโค้ดด้วย AI Studio',
+      icon: <Cpu className="w-8 h-8 text-yellow-400" />,
+      description: 'ใช้ Gemini ช่วยออกแบบ Web App ในฝันด้วย Vite.js Framework',
       points: [
-        { icon: <LogIn className="w-4 h-4" />, text: 'สมัครใช้งานครั้งแรก: เข้าไปที่ aistudio.google.com แล้วล็อกอินด้วย Gmail' },
-        { icon: <Sparkles className="w-4 h-4" />, text: 'การเสกไอเดีย: ใช้ Prompt จาก "Prompt Alchemist" สั่งให้ Gemini สร้างโค้ด HTML/CSS/JS' },
-        { icon: <Monitor className="w-4 h-4" />, text: 'ปรับแต่งต้นแบบ: ดูผลลัพธ์ผ่านตัว Preview และสั่งแก้จนกว่าจะตรงใจ (ก่อนนำโค้ดไปบันทึก)' }
+        { icon: <Sparkles className="w-4 h-4" />, text: 'พิมพ์ Prompt: "ช่วยสร้างเวบแอพสำหรับ [ชื่อไอเดีย] ด้วย Framework Vite.js + Tailwind CSS"' },
+        { icon: <Code2 className="w-4 h-4" />, text: 'คัดลอกโค้ด React จาก AI ไปใส่ในไฟล์ App.jsx' },
+        { icon: <Layers className="w-4 h-4" />, text: 'ปรับแต่งดีไซน์ด้วย Tailwind ให้สวยงามตามสไตล์กลุ่มเรา' }
       ],
-      color: 'border-indigo-500/30'
+      color: 'border-yellow-500/30'
     },
     {
       id: 'step2',
-      title: 'ขั้นตอนที่ 2: การบันทึกโค้ดไว้บน GitHub',
+      title: 'ขั้นตอนที่ 2: บันทึกลงตู้เซฟ GitHub',
       icon: <Github className="w-8 h-8 text-slate-200" />,
-      description: 'พื้นที่จัดเก็บงานแบบมืออาชีพ เพื่อให้โปรเจกต์ของเราออนไลน์ได้ตลอดไป',
+      description: 'สมัครและล็อกอิน GitHub ด้วย Email เดียวกับ AI Studio เพื่อความง่าย',
       points: [
-        { icon: <LogIn className="w-4 h-4" />, text: 'สมัครสมาชิก: แนะนำให้ใช้ Gmail เดียวกับ AI Studio เพื่อความเป็นระเบียบ' },
-        { icon: <Layout className="w-4 h-4" />, text: 'สร้าง Repo: กด "New Repository" ตั้งชื่อให้สื่อถึงผลงานของเรา' },
-        { icon: <Save className="w-4 h-4" />, text: 'บันทึก Repo ครั้งแรก: สร้างไฟล์ index.html และวางโค้ดจาก AI Studio ลงไป จากนั้นกด Commit' }
+        { icon: <LogIn className="w-4 h-4" />, text: 'สมัครใช้งาน GitHub (แนะนำใช้ Gmail โรงเรียน)' },
+        { icon: <Save className="w-4 h-4" />, text: 'สร้าง Repository ใหม่ ตั้งชื่อให้สื่อถึงโปรเจกต์' },
+        { icon: <CheckCircle2 className="w-4 h-4" />, text: 'อัปโหลดไฟล์โปรเจกต์ Vite ขึ้นสู่ GitHub (Push Code)' }
       ],
       color: 'border-slate-500/30'
     },
     {
       id: 'step3',
-      title: 'ขั้นตอนที่ 3: การโชว์เวบไซต์สู่สาธารณะ ด้วย Vercel',
-      icon: <Globe className="w-8 h-8 text-cyan-400" />,
-      description: 'ขั้นตอนสุดท้ายในการส่งผลงานออกสู่โลกกว้างให้คนอื่นได้เข้าชม',
+      title: 'ขั้นตอนที่ 3: ออนไลน์จริงด้วย Vercel',
+      icon: <Rocket className="w-8 h-8 text-cyan-400" />,
+      description: 'นำลิงก์ GitHub มาเชื่อมต่อกับ Vercel เพื่อออนไลน์หน้าเว็บ',
       points: [
-        { icon: <LogIn className="w-4 h-4" />, text: 'สมัครใช้งาน: เข้า Vercel.com และเลือก "Continue with GitHub"' },
-        { icon: <Zap className="w-4 h-4" />, text: 'เชื่อมต่อ GitHub: กด "Add New Project" และเลือก Repository ที่เราเพิ่งสร้าง' },
-        { icon: <Send className="w-4 h-4" />, text: 'Launch Pad: กด "Deploy" แล้วรอสักครู่ Vercel จะมอบ URL สาธารณะให้เราทันที!' }
+        { icon: <Globe className="w-4 h-4" />, text: 'ล็อกอิน Vercel ด้วยบัญชี GitHub' },
+        { icon: <Zap className="w-4 h-4" />, text: 'กด Import Project จาก GitHub ที่เราเพิ่งอัปโหลด' },
+        { icon: <ExternalLink className="w-4 h-4" />, text: 'กด Deploy และรอรับ URL สาธารณะ (เช่น project.vercel.app)' }
       ],
       color: 'border-cyan-500/30'
     }
@@ -143,17 +146,14 @@ const WorkshopFlowPage: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h2 className="text-3xl font-bold flex items-center gap-3">
-            <Monitor className="text-indigo-400" /> ขั้นตอนการผลิตชิ้นงาน
+            <Monitor className="text-indigo-400" /> แผนที่การสร้าง Web App (M.3)
           </h2>
-          <p className="text-slate-400 mt-2">คู่มือการสร้าง Web App ทีละขั้นตอนสำหรับนักเรียน</p>
-        </div>
-        <div className="flex items-center gap-2 text-sm text-slate-400 bg-slate-800 px-4 py-2 rounded-full border border-slate-700 w-fit">
-          <Zap className="w-4 h-4 text-yellow-500 animate-pulse" /> กระบวนการสร้างสรรค์ 1 วัน
+          <p className="text-slate-400 mt-2">ทำตาม 3 ขั้นตอนนี้ แล้วรับรองว่ามีเว็บเป็นของตัวเองแน่นอน!</p>
         </div>
       </div>
 
       <div className="space-y-6">
-        {productionSteps.map((step, idx) => (
+        {productionSteps.map((step) => (
           <div key={step.id} className={`bg-slate-800/40 backdrop-blur-md border-l-4 ${step.color} rounded-2xl p-6 md:p-8 hover:bg-slate-800/60 transition-all shadow-lg`}>
             <div className="flex flex-col md:flex-row gap-6">
               <div className="flex-shrink-0 bg-slate-900/50 w-16 h-16 rounded-2xl flex items-center justify-center border border-slate-700/50">
@@ -164,7 +164,7 @@ const WorkshopFlowPage: React.FC = () => {
                   <h3 className="text-xl md:text-2xl font-bold text-white mb-2">{step.title}</h3>
                   <p className="text-slate-400 text-sm md:text-base">{step.description}</p>
                 </div>
-                <div className="grid grid-cols-1 gap-3">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {step.points.map((point, pIdx) => (
                     <div key={pIdx} className="flex items-start gap-3 bg-slate-900/30 p-3 rounded-xl border border-slate-700/30">
                       <div className="mt-1 bg-indigo-500/20 p-1.5 rounded-lg text-indigo-400">
@@ -179,39 +179,6 @@ const WorkshopFlowPage: React.FC = () => {
           </div>
         ))}
       </div>
-
-      <Card title="การจัดการ API Key สำหรับโปรเจกต์" icon={<Key className="text-yellow-400 w-5 h-5" />}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <div className="space-y-4">
-            <p className="text-slate-300 text-sm leading-relaxed">
-              หากโปรเจกต์ของเธอมีการเรียกใช้งาน AI หรือบริการภายนอกที่ต้องใช้ API Key ให้นักเรียนปฏิบัติตามนี้เพื่อความปลอดภัย:
-            </p>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-3 text-xs md:text-sm text-slate-400">
-                <div className="w-5 h-5 rounded-full bg-indigo-600 flex items-center justify-center text-[10px] text-white shrink-0 mt-0.5">1</div>
-                <span><strong>ตั้งชื่อโครงการ:</strong> ใน AI Studio ให้ตั้งชื่อให้จำง่าย</span>
-              </li>
-              <li className="flex items-start gap-3 text-xs md:text-sm text-slate-400">
-                <div className="w-5 h-5 rounded-full bg-indigo-600 flex items-center justify-center text-[10px] text-white shrink-0 mt-0.5">2</div>
-                <span><strong>สร้าง API Key:</strong> กดปุ่ม "Get API key" และคัดลอกรหัสไว้อย่างระมัดระวัง</span>
-              </li>
-              <li className="flex items-start gap-3 text-xs md:text-sm text-slate-400">
-                <div className="w-5 h-5 rounded-full bg-indigo-600 flex items-center justify-center text-[10px] text-white shrink-0 mt-0.5">3</div>
-                <span><strong>วางใน Environment:</strong> กลับไปที่ Vercel Dashboard -> Settings -> Environment Variables แล้วเพิ่ม Key ลงไป (ห้ามเขียนไว้ในโค้ดตรงๆ!)</span>
-              </li>
-            </ul>
-          </div>
-          <div className="bg-indigo-900/20 border border-indigo-500/30 p-6 rounded-2xl">
-            <div className="flex items-center gap-3 mb-3 text-indigo-400">
-              <ShieldCheck className="w-6 h-6" />
-              <h4 className="font-bold">Security Tip</h4>
-            </div>
-            <p className="text-slate-400 text-xs leading-relaxed">
-              การไม่ใส่ API Key ไว้ในโค้ดโดยตรงจะช่วยป้องกันไม่ให้คนอื่นแอบเอารหัสของเราไปใช้จนโควต้าเต็ม ครูเด่นแนะนำให้ใช้ Environment Variables เสมอนะครับ!
-            </p>
-          </div>
-        </div>
-      </Card>
     </div>
   );
 };
@@ -228,7 +195,7 @@ const PromptAlchemistPage: React.FC = () => {
       const result = await getPromptAdvice(idea);
       setAdvice(result);
     } catch (e) {
-      alert("Oops! Magic failed. Check your API Key.");
+      alert("โอ๊ะโอ! พลัง AI ติดขัด ลองใหม่อีกครั้งนะ");
     } finally {
       setLoading(false);
     }
@@ -237,35 +204,32 @@ const PromptAlchemistPage: React.FC = () => {
   return (
     <div className="space-y-8 animate-in zoom-in duration-500 max-w-4xl mx-auto">
       <div className="text-center space-y-2">
-        <h2 className="text-3xl md:text-4xl font-black mb-2 bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-pink-400">Prompt Alchemist</h2>
-        <p className="text-slate-400">ปรุงสูตรลับ "เสก" เว็บให้ Pro แบบไม่มี Error (ฉบับนักเรียน ม.3)</p>
+        <h2 className="text-3xl md:text-4xl font-black mb-2 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-indigo-400">Magic Prompt Generator</h2>
+        <p className="text-slate-400">พิมพ์ไอเดีย แล้วรับ "คาถา" ไปรันใน AI Studio ได้เลย!</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-2 space-y-6">
           <div className="bg-slate-800 p-8 rounded-3xl shadow-2xl border border-slate-700 relative overflow-hidden">
-             <div className="absolute top-0 right-0 p-4 opacity-10">
-                <Sparkles size={100} />
-             </div>
-            <label className="block text-slate-300 mb-3 font-bold text-lg">ไอเดียสุดเจ๋งของเธอคืออะไร?</label>
+            <label className="block text-slate-300 mb-3 font-bold text-lg">กลุ่มเราอยากทำเว็บเกี่ยวกับอะไร?</label>
             <textarea
               value={idea}
               onChange={(e) => setIdea(e.target.value)}
               className="w-full bg-slate-900 border-2 border-slate-700 rounded-2xl p-4 text-white focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all resize-none min-h-[120px]"
-              placeholder="เช่น เว็บรวมร้านอาหารอร่อยหน้าโรงเรียน, เว็บสอนเล่นเกม, เว็บแนะนำตัวเองเท่ๆ..."
+              placeholder="เช่น เว็บรวมร้านอาหารแถวโรงเรียน, เว็บบันทึกแต้มฟุตบอล ม.3, พอร์ตโฟลิโอรวมผลงานศิลปะ..."
             />
             <button
               onClick={handleMagic}
               disabled={loading || !idea}
-              className="w-full mt-6 bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 hover:scale-[1.02] active:scale-95 text-white font-black py-4 rounded-2xl flex items-center justify-center gap-3 transition-all disabled:opacity-50 shadow-xl shadow-indigo-600/20"
+              className="w-full mt-6 bg-gradient-to-r from-yellow-500 via-indigo-600 to-indigo-700 hover:scale-[1.02] active:scale-95 text-white font-black py-4 rounded-2xl flex items-center justify-center gap-3 transition-all disabled:opacity-50 shadow-xl shadow-indigo-600/20"
             >
-              {loading ? <div className="w-6 h-6 border-4 border-white/20 border-t-white rounded-full animate-spin"></div> : <><Zap className="w-5 h-5 fill-current" /> ปรุงสูตร Magic Prompt!</>}
+              {loading ? <div className="w-6 h-6 border-4 border-white/20 border-t-white rounded-full animate-spin"></div> : <><Sparkles className="w-5 h-5" /> เสกคาถา Prompt!</>}
             </button>
           </div>
 
           {advice && (
             <div className="bg-slate-900/80 border-2 border-indigo-500/30 p-8 rounded-3xl animate-in fade-in slide-in-from-top-6 duration-500 relative">
-              <div className="absolute -top-3 left-8 bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full">MAGIC RESULT</div>
+              <div className="absolute -top-3 left-8 bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full">MAGIC FORMULA</div>
               <div className="flex items-start gap-4 mb-6">
                  <div className="w-12 h-12 rounded-full bg-indigo-600 flex-shrink-0 flex items-center justify-center text-white font-bold">ครู</div>
                  <div className="bg-indigo-600/10 p-4 rounded-2xl rounded-tl-none border border-indigo-500/20">
@@ -276,42 +240,18 @@ const PromptAlchemistPage: React.FC = () => {
               <div className="space-y-6">
                 <div>
                   <h5 className="font-bold text-white mb-3 flex items-center gap-2">
-                    <Github className="w-5 h-5 text-slate-400" /> Copy & Paste ใน AI Studio:
+                    <Code2 className="w-5 h-5 text-slate-400" /> คัดลอกไปวางที่ AI Studio:
                   </h5>
                   <div className="relative group">
                      <pre className="bg-slate-950 p-5 rounded-2xl text-indigo-300 text-sm whitespace-pre-wrap border border-slate-800 font-mono leading-relaxed max-h-[300px] overflow-y-auto custom-scrollbar text-xs md:text-sm">
                       {advice.suggestedPrompt}
                     </pre>
                     <button 
-                      onClick={() => { navigator.clipboard.writeText(advice.suggestedPrompt); alert("คัดลอกสำเร็จ! เอาไปใช้ใน AI Studio ได้เลย"); }}
+                      onClick={() => { navigator.clipboard.writeText(advice.suggestedPrompt); alert("คัดลอกคาถาแล้ว! เตรียมไปวางใน AI Studio นะ"); }}
                       className="absolute top-4 right-4 p-3 bg-indigo-600 hover:bg-indigo-500 rounded-xl shadow-lg transition-all transform hover:scale-110"
-                      title="คัดลอกคำสั่ง"
                     >
                       <CheckCircle2 className="w-5 h-5 text-white" />
                     </button>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-slate-800/50 p-4 rounded-2xl border border-slate-700/50">
-                    <h5 className="font-bold text-white mb-2 text-sm flex items-center gap-2"><Sparkles className="w-4 h-4 text-yellow-400"/> ฟีเจอร์เด่น:</h5>
-                    <ul className="space-y-2">
-                      {advice.features.map((f: string, i: number) => (
-                        <li key={i} className="flex items-center gap-2 text-slate-400 text-xs">
-                          <div className="w-1.5 h-1.5 rounded-full bg-indigo-500"></div> {f}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="bg-indigo-950/20 p-4 rounded-2xl border border-indigo-500/20">
-                    <h5 className="font-bold text-indigo-300 mb-2 text-sm flex items-center gap-2"><Lightbulb className="w-4 h-4"/> เคล็ดลับไม่ให้ Error:</h5>
-                    <ul className="space-y-2">
-                      {advice.proTips.map((t: string, i: number) => (
-                        <li key={i} className="flex items-center gap-2 text-slate-400 text-xs">
-                          <CheckCircle2 className="w-3 h-3 text-green-500" /> {t}
-                        </li>
-                      ))}
-                    </ul>
                   </div>
                 </div>
               </div>
@@ -320,31 +260,14 @@ const PromptAlchemistPage: React.FC = () => {
         </div>
 
         <div className="space-y-6">
-          <Card title="3 กฎเหล็กเลี่ยง Error" icon={<ShieldCheck className="text-indigo-400 w-5 h-5" />}>
-             <div className="space-y-4">
-               <div className="group border-b border-slate-700 pb-3 last:border-0">
-                 <p className="text-white font-bold text-sm mb-1 group-hover:text-indigo-400 transition-colors">1. ไฟล์เดียวจบ (Single File)</p>
-                 <p className="text-slate-500 text-xs">บอก AI ให้รวม HTML, CSS, JS ไว้ในไฟล์ index.html ไฟล์เดียวเท่านั้น</p>
-               </div>
-               <div className="group border-b border-slate-700 pb-3 last:border-0">
-                 <p className="text-white font-bold text-sm mb-1 group-hover:text-indigo-400 transition-colors">2. ใช้ CDN ที่ไว้ใจได้</p>
-                 <p className="text-slate-500 text-xs">ใช้ Tailwind CSS หรือ Font Awesome ผ่าน CDN ลิงก์เดียวสวยเลย ไม่ต้องติดตั้งเพิ่ม</p>
-               </div>
-               <div className="group border-b border-slate-700 pb-3 last:border-0">
-                 <p className="text-white font-bold text-sm mb-1 group-hover:text-indigo-400 transition-colors">3. ใช้รูปภาพ Placeholder</p>
-                 <p className="text-slate-500 text-xs">ถ้ายังไม่มีรูป ให้ AI ใช้ Unsplash หรือ Picsum แทนรูปจริง จะได้เห็นภาพรวมก่อน</p>
-               </div>
-             </div>
+          <Card title="ไอเดียยอดฮิต ม.3" icon={<Lightbulb className="text-yellow-400 w-5 h-5" />}>
+             <ul className="space-y-3">
+               <li className="text-xs text-slate-400 flex items-center gap-2"><div className="w-1 h-1 rounded-full bg-indigo-500"></div> เว็บสุ่มชื่อเพื่อนในห้อง</li>
+               <li className="text-xs text-slate-400 flex items-center gap-2"><div className="w-1 h-1 rounded-full bg-indigo-500"></div> เว็บบันทึกตารางสอนรายบุคคล</li>
+               <li className="text-xs text-slate-400 flex items-center gap-2"><div className="w-1 h-1 rounded-full bg-indigo-500"></div> เว็บแนะนำเกมที่น่าสนใจ</li>
+               <li className="text-xs text-slate-400 flex items-center gap-2"><div className="w-1 h-1 rounded-full bg-indigo-500"></div> เว็บสะสมแต้มพฤติกรรมกลุ่ม</li>
+             </ul>
           </Card>
-          
-          <div className="bg-gradient-to-br from-indigo-600 to-purple-700 p-6 rounded-3xl shadow-xl">
-             <h4 className="font-bold text-white mb-2 flex items-center gap-2">
-               <HelpCircle className="w-5 h-5" /> ต้องการความช่วยเหลือ?
-             </h4>
-             <p className="text-indigo-100 text-xs leading-relaxed">
-               ยกมือถาม "ครูเด่น" หรือถาม "Master Creator" ประจำโต๊ะได้เลยนะครับ! สนุกกับการเสกเว็บนะ!
-             </p>
-          </div>
         </div>
       </div>
     </div>
@@ -360,8 +283,13 @@ const WorkbookPage: React.FC = () => {
     deployed: false
   });
 
-  const [assessment, setAssessment] = useState({ aiKnowledge: 1, everCoded: 'no' });
-  const [reflection, setReflection] = useState<ReflectionData>({ what: '', soWhat: '', nowWhat: '', confidence: 3 });
+  const [members, setMembers] = useState(['', '', '', '', '']);
+
+  const handleMemberChange = (index: number, value: string) => {
+    const newMembers = [...members];
+    newMembers[index] = value;
+    setMembers(newMembers);
+  };
 
   const toggleCheck = (key: keyof ProjectChecklist) => {
     setChecklist(prev => ({ ...prev, [key]: !prev[key] }));
@@ -371,60 +299,36 @@ const WorkbookPage: React.FC = () => {
     <div className="space-y-8 animate-in fade-in duration-500">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <h2 className="text-3xl font-black text-white">The Creator's Workbook</h2>
-          <p className="text-slate-400">บันทึกการเดินทางของสุดยอดนักพัฒนา</p>
-        </div>
-        <div className="bg-indigo-600 text-white px-4 py-2 rounded-2xl text-sm font-bold shadow-lg shadow-indigo-600/30">
-          ระดับความมั่นใจ: {reflection.confidence}/5
+          <h2 className="text-3xl font-black text-white">Vite Creator Workbook</h2>
+          <p className="text-slate-400">บันทึกความสำเร็จ และเตรียมส่งงานกลุ่ม</p>
         </div>
       </div>
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-1 space-y-6">
-          <Card title="Pre-Workshop Assessment" icon={<HelpCircle className="text-indigo-400 w-5 h-5" />}>
-            <div className="space-y-4">
-              <div>
-                <label className="text-sm text-slate-400 block mb-2">ฉันรู้จัก AI แค่ไหน?</label>
-                <div className="flex justify-between">
-                  {[1, 2, 3, 4, 5].map(v => (
-                    <button 
-                      key={v}
-                      onClick={() => setAssessment(prev => ({ ...prev, aiKnowledge: v }))}
-                      className={`w-8 h-8 rounded-lg text-xs font-bold transition-all ${assessment.aiKnowledge === v ? 'bg-indigo-600 text-white' : 'bg-slate-700 text-slate-400'}`}
-                    >
-                      {v}
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <label className="text-sm text-slate-400 block mb-2">เคยเขียนโค้ดมาก่อนไหม?</label>
-                <div className="flex gap-2">
-                  <button 
-                    onClick={() => setAssessment(prev => ({ ...prev, everCoded: 'yes' }))}
-                    className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all ${assessment.everCoded === 'yes' ? 'bg-indigo-600 text-white border-transparent' : 'bg-slate-700 text-slate-400 border border-slate-600'}`}
-                  >
-                    เคย
-                  </button>
-                  <button 
-                    onClick={() => setAssessment(prev => ({ ...prev, everCoded: 'no' }))}
-                    className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all ${assessment.everCoded === 'no' ? 'bg-indigo-600 text-white border-transparent' : 'bg-slate-700 text-slate-400 border border-slate-600'}`}
-                  >
-                    ไม่เคย
-                  </button>
-                </div>
-              </div>
+          <Card title="สมาชิกในกลุ่ม (1-5 คน)" icon={<Users className="text-indigo-400 w-5 h-5" />}>
+            <div className="space-y-3">
+              {members.map((m, i) => (
+                <input
+                  key={i}
+                  type="text"
+                  placeholder={`ชื่อสมาชิกคนที่ ${i+1}`}
+                  value={m}
+                  onChange={(e) => handleMemberChange(i, e.target.value)}
+                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-sm text-slate-200 outline-none focus:border-indigo-500"
+                />
+              ))}
             </div>
           </Card>
 
-          <Card title="Technical Checklist" icon={<CheckCircle2 className="text-green-400 w-5 h-5" />}>
+          <Card title="Checklist ความสำเร็จ" icon={<CheckCircle2 className="text-green-400 w-5 h-5" />}>
             <div className="space-y-3">
               {Object.entries({
-                githubAccount: "สมัคร GitHub เรียบร้อย",
-                repoCreated: "สร้าง Repo (บ้านของโค้ด)",
-                codeUploaded: "เสกโค้ดเข้า GitHub",
-                vercelConnected: "เปิดวาร์ปเข้า Vercel",
-                deployed: "ออนไลน์จริง 100%!"
+                githubAccount: "สมัคร/ล็อกอิน GitHub",
+                repoCreated: "ใช้ AI เสกโค้ดสำเร็จ",
+                codeUploaded: "อัปโหลดโค้ดขึ้น GitHub",
+                vercelConnected: "เชื่อมต่อ GitHub กับ Vercel",
+                deployed: "ออนไลน์จริงด้วย URL ส่วนตัว"
               }).map(([key, label]) => (
                 <button
                   key={key}
@@ -444,62 +348,19 @@ const WorkbookPage: React.FC = () => {
         </div>
 
         <div className="lg:col-span-2 space-y-6">
-          <Card title="Reflection Sheet (หัวใจสำคัญ)" icon={<MessageSquare className="text-pink-400 w-5 h-5" />}>
-            <div className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                 <div>
-                  <label className="block text-white font-bold mb-2">What: วันนี้ทำอะไรสำเร็จบ้าง?</label>
-                  <textarea 
-                    value={reflection.what}
-                    onChange={e => setReflection(prev => ({ ...prev, what: e.target.value }))}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-2xl p-4 text-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none h-32 transition-all"
-                    placeholder="เล่าความสำเร็จสั้นๆ..."
-                  />
-                </div>
-                <div>
-                  <label className="block text-white font-bold mb-2">So What: อะไรยากที่สุด? ผ่านมาได้ยังไง?</label>
-                  <textarea 
-                    value={reflection.soWhat}
-                    onChange={e => setReflection(prev => ({ ...prev, soWhat: e.target.value }))}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-2xl p-4 text-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none h-32 transition-all"
-                    placeholder="ตอนเจอ Error รู้สึกยังไง และแก้ยังไง..."
-                  />
-                </div>
-              </div>
-              <div>
-                <label className="block text-white font-bold mb-2">Now What: จะเอาความรู้นี้ไปช่วยงานที่ไหนต่อ?</label>
-                <textarea 
-                  value={reflection.nowWhat}
-                  onChange={e => setReflection(prev => ({ ...prev, nowWhat: e.target.value }))}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-2xl p-4 text-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none h-32 transition-all"
-                  placeholder="เช่น ช่วยพ่อแม่ทำเว็บร้านค้า, ช่วยครูทำเว็บวิชาการ..."
-                />
-              </div>
-
-              <div className="pt-4 border-t border-slate-700 flex flex-col md:flex-row items-center justify-between gap-4">
-                <div className="flex-1 w-full">
-                  <p className="text-xs text-slate-500 mb-2 font-bold uppercase tracking-widest">ให้คะแนนความมั่นใจ</p>
-                  <div className="flex gap-2">
-                    {[1, 2, 3, 4, 5].map(v => (
-                      <button
-                        key={v}
-                        onClick={() => setReflection(prev => ({ ...prev, confidence: v }))}
-                        className={`flex-1 py-3 rounded-2xl text-lg transition-all transform active:scale-90 ${
-                          reflection.confidence === v ? 'bg-indigo-600 text-white shadow-lg' : 'bg-slate-800 text-slate-500'
-                        }`}
-                      >
-                        {v === 1 ? '😢' : v === 2 ? '😕' : v === 3 ? '😐' : v === 4 ? '😊' : '🚀'}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                <button 
-                  onClick={() => alert("บันทึกการเรียนรู้เรียบร้อย! ครูเด่นภูมิใจในตัวคุณมาก ขอให้สนุกกับการสร้างสรรค์ต่อใน 7 วันนี้นะ!")}
-                  className="w-full md:w-auto px-10 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-black rounded-2xl transition-all shadow-xl shadow-indigo-600/30 active:scale-95"
-                >
-                  ส่งการบ้านครูเด่น
-                </button>
-              </div>
+          <Card title="ส่งงานผ่านฟอร์ม (กดยืนยันด้วย URL จาก Vercel)" icon={<Send className="text-cyan-400 w-5 h-5" />}>
+            <div className="rounded-2xl overflow-hidden border border-slate-700 bg-white">
+               <iframe 
+                src="https://docs.google.com/forms/d/e/1FAIpQLScytkvqqOnXTRyhfe47ykyIuf1_S3aK3xmRzE4UBpFJJ_n1iw/viewform?embedded=true" 
+                width="100%" 
+                height="800" 
+                frameBorder="0" 
+                marginHeight={0} 
+                marginWidth={0}
+                title="Google Form Submission"
+               >
+                 กำลังโหลด…
+               </iframe>
             </div>
           </Card>
         </div>
@@ -518,12 +379,12 @@ export default function App() {
       {/* Sidebar - Desktop */}
       <aside className="hidden md:flex w-72 flex-col bg-slate-900/50 border-r border-slate-800 p-6 space-y-8 sticky top-0 h-screen">
         <div className="flex items-center space-x-3 px-2">
-          <div className="p-2.5 bg-gradient-to-br from-indigo-600 to-indigo-700 rounded-2xl shadow-lg shadow-indigo-600/20">
-            <Rocket className="text-white w-6 h-6" />
+          <div className="p-2.5 bg-gradient-to-br from-yellow-400 to-indigo-600 rounded-2xl shadow-lg shadow-indigo-600/20">
+            <Rocket className="text-slate-950 w-6 h-6" />
           </div>
           <div>
             <h1 className="text-lg font-black tracking-tight leading-none text-white">KRU DEN</h1>
-            <p className="text-[10px] text-indigo-400 font-bold uppercase tracking-widest mt-1">AI Workshop Creator</p>
+            <p className="text-[10px] text-indigo-400 font-bold uppercase tracking-widest mt-1">AI Web Creator M.3</p>
           </div>
         </div>
         
@@ -536,33 +397,33 @@ export default function App() {
           />
           <SidebarItem 
             active={activeTab === 'flow'} 
-            title="Production Steps" 
+            title="Step-by-Step" 
             icon={<Monitor className="w-5 h-5" />} 
             onClick={() => setActiveTab('flow')} 
           />
           <SidebarItem 
             active={activeTab === 'alchemist'} 
-            title="Prompt Alchemist" 
+            title="AI Magic Prompt" 
             icon={<Sparkles className="w-5 h-5" />} 
             onClick={() => setActiveTab('alchemist')} 
           />
           <SidebarItem 
             active={activeTab === 'workbook'} 
-            title="My Workbook" 
-            icon={<BookOpen className="w-5 h-5" />} 
+            title="Send Homework" 
+            icon={<Send className="w-5 h-5" />} 
             onClick={() => setActiveTab('workbook')} 
           />
         </nav>
 
         <div className="p-5 bg-gradient-to-br from-slate-800/80 to-slate-900/80 rounded-3xl border border-slate-700 shadow-xl">
           <div className="flex items-center gap-3 mb-3">
-             <div className="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center font-black text-xs text-white">ครู</div>
+             <div className="w-8 h-8 rounded-full bg-yellow-500 flex items-center justify-center font-black text-xs text-slate-950">ครู</div>
              <div>
-               <p className="text-xs text-slate-400 font-bold uppercase tracking-wider">Facilitator</p>
+               <p className="text-xs text-slate-400 font-bold uppercase tracking-wider">Workshop Lead</p>
                <p className="text-sm font-black text-white">ครูเด่น</p>
              </div>
           </div>
-          <p className="text-[10px] text-slate-500 leading-relaxed italic">"หัวใจไม่ใช่ความเป๊ะของ Code แต่คือความภูมิใจที่ทำสำเร็จ!"</p>
+          <p className="text-[10px] text-slate-500 leading-relaxed italic">"Framework Vite คือความเร็ว GitHub คือความปลอดภัย AI คือที่ปรึกษา ลุยเลย!"</p>
         </div>
       </aside>
 
@@ -578,7 +439,7 @@ export default function App() {
             <Sparkles className="w-6 h-6" />
           </button>
           <button onClick={() => setActiveTab('workbook')} className={`transition-all p-2 rounded-xl ${activeTab === 'workbook' ? 'bg-indigo-600 text-white scale-110 shadow-lg' : 'text-slate-500'}`}>
-            <BookOpen className="w-6 h-6" />
+            <Send className="w-6 h-6" />
           </button>
       </div>
 
